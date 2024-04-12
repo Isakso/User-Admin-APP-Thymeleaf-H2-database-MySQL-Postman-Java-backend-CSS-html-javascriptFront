@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Registry Platform</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .form-container h2 {
+            margin-top: 0;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        .delete-button {
+            background-color: #f44336;
+        }
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Member Dashboard</h1>
+    <ul>
+        <!-- Iterate over members and display their names -->
+        <th:block th:each="members : ${member}">
+            <li>
+                <span th:text="${members.name}"></span>
+                <!-- Delete button -->
+                <form th:action="@{/deleteMember/{id}(id=${members.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+                <!-- Update button -->
+                <form th:action="@{/admin/updateMember/{id}(id=${members.id})}" method="get" style="display: inline;">
+                    <button type="submit">Update</button>
+                </form>
+            </li>
+        </th:block>
+    </ul>
+
+    <!-- Add Member Form -->
+    <div class="form-container">
+        <h2>Add Member</h2>
+        <form th:action="@{/admin/addMember}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address"><br>
+
+            <label for="birth_date">Birthday:</label>
+            <input type="text" id="birth_date" name="birth_date"><br>
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email"><br>
+
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name"><br>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name"><br>
+
+            <label for="phone_no">Phone No:</label>
+            <input type="text" id="phone_no" name="phone_no"><br>
+
+            <button type="submit">Add Member</button>
+        </form>
+    </div>
+
+    <!-- Update Member Form -->
+
+</div>
+
+<script>
+    // JavaScript function to populate update fields when a member is clicked
+    function populateUpdateFields(id, name, address, birthDate, email, firstName, lastName, phoneNo) {
+        document.getElementById("id").value = id;
+        document.getElementById("update_name").value = name;
+        document.getElementById("update_address").value = address;
+        document.getElementById("update_birth_date").value = birthDate;
+        document.getElementById("update_email").value = email;
+        document.getElementById("update_first_name").value = firstName;
+        document.getElementById("update_last_name").value = lastName;
+        document.getElementById("update_phone_no").value = phoneNo;
+    }
+</script>
+
+</body>
+</html>
